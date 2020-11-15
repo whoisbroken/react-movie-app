@@ -22,8 +22,17 @@ class App extends React.Component {
   }
 
   addToWillWatch = movie => {
-    const updateMoviesWillWatch = [...this.state.moviesWillWatch];
-    updateMoviesWillWatch.push(movie)
+    const updateMoviesWillWatch = [...this.state.moviesWillWatch, movie];
+    this.setState({
+      moviesWillWatch: updateMoviesWillWatch
+    })
+  }
+
+  removeFromWillWatch = movie => {
+    const updateMoviesWillWatch = this.state.moviesWillWatch.filter(item => {
+      return item.id !== movie.id;
+    })
+
     this.setState({
       moviesWillWatch: updateMoviesWillWatch
     })
@@ -43,6 +52,7 @@ class App extends React.Component {
                       movie={movie}
                       removeMovie={this.removeMovie}
                       addToWillWatch={this.addToWillWatch}
+                      removeFromWillWatch={this.removeFromWillWatch}
                     />
                   </div>
                   );
