@@ -13,9 +13,22 @@ class App extends React.Component {
       moviesWillWatch: [],
       sort_by: "popularity.desc"
     }
+
   }
 
   componentDidMount() {
+    this.getMovie()
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.sort_by !== this.state.sort_by) {
+      this.getMovie()
+    }
+    
+    console.log()
+  }
+
+  getMovie() {
     fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&sort_by=${this.state.sort_by}`)
     .then((response) => {
       return response.json()
@@ -26,7 +39,6 @@ class App extends React.Component {
       })
     })
   }
-  
 
   removeMovie = movie => {
     const updateMovies = this.state.movies.filter(item => {

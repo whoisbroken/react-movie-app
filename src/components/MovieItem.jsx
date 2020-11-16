@@ -33,7 +33,7 @@ class MovieItem extends React.Component {
                   })
                   removeFromWillWatch(movie)
                 }}>
-                Remove Will Watch
+                Remove Will Watch  
               </button> :
               <button type="button"
                 className="btn btn-success"
