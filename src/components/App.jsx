@@ -1,5 +1,6 @@
 import React from 'react';
-import { moviesData } from '../moviesData';
+// import { movieData } from "../movieData.js";
+import { API_URL, API_KEY } from '../utils/api';
 import MovieItem from './MovieItem';
 
 class App extends React.Component {
@@ -7,10 +8,23 @@ class App extends React.Component {
     super()
 
     this.state = {
-      movies: moviesData,
+      movies: [],
       moviesWillWatch: []
     }
   }
+
+  componentDidMount() {
+    fetch(`${API_URL}/discover/movie?api_key=${API_KEY}`)
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      this.setState({
+        movies: data.results
+      })
+    })
+  }
+  
 
   removeMovie = movie => {
     const updateMovies = this.state.movies.filter(item => {
@@ -59,7 +73,7 @@ class App extends React.Component {
                 })}
             </div>
           </div>
-          <div className="col-3">Will Watch Movie: {this.state.moviesWillWatch.length}</div>
+          <div className="col-3">Will Watch Movie: {this.state.moviesWillWatch.length} movies</div>
         </div>
       </div>
     )
